@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react"; // Using shadcn's Lucide icons
 
 const Loading = () => {
   return (
-    <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+    <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center bg-gradient-to-br from-gray-900 to-purple-900">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -104,8 +104,8 @@ const Loading = () => {
             transition={{ delay: 0.3 }}
             className="text-center"
           >
-            <h2 className="text-xl font-semibold tracking-tight">Loading Your Experience</h2>
-            <p className="text-sm text-muted-foreground mt-1">
+            <h2 className="text-xl font-semibold tracking-tight text-gray-100">Loading Your Experience</h2>
+            <p className="text-sm mt-1 text-gray-300">
               Preparing everything for you
             </p>
           </motion.div>

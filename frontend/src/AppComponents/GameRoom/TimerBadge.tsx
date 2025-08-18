@@ -1,22 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Badge } from "@/components/ui/badge";
+import React from "react";
 
-const TimerBadge = ({ initialTime }: { initialTime: number }) => {
+interface TimerBadgeProps {
+  initialTime: number;
+  onTimeUp?: () => void;
+}
+
+const TimerBadge = ({ initialTime, onTimeUp }: TimerBadgeProps) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
+
+  const handleTick = useCallback(() => {
+    setTimeLeft(prev => {
+      if (prev <= 1) {
+        onTimeUp?.();
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, [onTimeUp]);
 
   useEffect(() => {
     setTimeLeft(initialTime);
-    const interval = setInterval(() => {
-      setTimeLeft(prev => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+    const interval = setInterval(handleTick, 1000);
     return () => clearInterval(interval);
-  }, [initialTime]);
+  }, [initialTime, handleTick]);
 
   return (
-    <Badge variant={timeLeft < 5 ? "destructive" : "default"}>
+    <Badge 
+      variant={timeLeft < 5 ? "destructive" : "default"}
+      className="font-mono text-sm"
+    >
       {timeLeft}s
     </Badge>
   );
 };
 
-export default TimerBadge;
+export default React.memo(TimerBadge);

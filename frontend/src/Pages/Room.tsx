@@ -1,6 +1,6 @@
-import { getCreatedRooms, type getRooms } from "@/apiEndpoints/Room";
+import { deleteRoom, getCreatedRooms, resetRoom, type getRooms } from "@/apiEndpoints/Room";
 import MyRooms from "@/AppComponents/MyRooms/MyRooms";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { Rocket, Users, Award, BookOpen } from "lucide-react";
 import { motion } from "framer-motion";
@@ -22,6 +22,8 @@ const itemVariants: Variants = {
 };
 
 const Room = () => {
+
+  const queryClient = useQueryClient();
   const {
     data: createdRoomsData,
     isLoading: isRoomsLoading,
@@ -32,11 +34,29 @@ const Room = () => {
     queryFn: getCreatedRooms,
   });
 
+  const handleDelete = async (roomId: string) => {
+    try {
+      await deleteRoom(roomId);
+      queryClient.invalidateQueries({ queryKey: ["createdRooms"] });
+    } catch (error) {
+      console.error("Failed to delete room:", error);
+    }
+  };
+
+  const handleReset = async (roomId: string) => {
+    try {
+      await resetRoom(roomId);
+      queryClient.invalidateQueries({ queryKey: ["createdRooms"] });
+    } catch (error) {
+      console.error("Failed to reset room:", error);
+    }
+  };
+
   return (
-    <div className="w-full min-h-screen bg-gray-200">
+    <div className="w-full min-h-screen bg-gray-300">
       {/* Hero Section */}
       <motion.div
-        className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-purple-900 text-white"
+        className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-purple-900 text-white"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -90,7 +110,7 @@ const Room = () => {
       </motion.div>
 
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto w-full py-12 px-4 sm:px-6 lg:px-8">
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           variants={containerVariants}
@@ -111,6 +131,8 @@ const Room = () => {
               isLoading={isRoomsLoading}
               error={roomsError}
               isError={isError}
+              onDeleteRoom={handleDelete}
+              onResetRoom={handleReset}
               filter="active"
             />
           </motion.div>
@@ -127,6 +149,8 @@ const Room = () => {
               data={createdRoomsData}
               isLoading={isRoomsLoading}
               error={roomsError}
+              onDeleteRoom={handleDelete}
+              onResetRoom={handleReset}
               isError={isError}
             />
           </motion.div>

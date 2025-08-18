@@ -8,7 +8,7 @@ import CreateRoom from "../CreateRoom/CreateRoom";
 import JoinRoom from "../CreateRoom/JoinRoom";
 
 // Super simple particle config - we'll make these VERY visible
-const PARTICLES = Array.from({ length: 100 }).map((_, i) => ({
+const PARTICLES = Array.from({ length: 120 }).map((_, i) => ({
   id: i,
   size: Math.random() * 10 + 10, // Larger size
   x: Math.random() * 100,

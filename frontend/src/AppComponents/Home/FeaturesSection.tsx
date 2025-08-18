@@ -48,7 +48,7 @@ const FeaturesSection: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 1, y: 50 }}
+      initial={{ opacity: 1, y: -50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
@@ -56,7 +56,7 @@ const FeaturesSection: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4">
         <motion.h2
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
           viewport={{ once: true }}

@@ -9,7 +9,7 @@ const CTASection = () => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="py-24 bg-gradient-to-b from-gray-900 to-gray-600"
+      className="py-24 bg-gradient-to-b from-gray-900 to-gray-700"
     >
       <div className="max-w-7xl mx-auto px-4 text-center">
         <motion.h2 

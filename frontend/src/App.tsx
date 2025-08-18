@@ -11,13 +11,15 @@ import ProtectRoute from "./Layout/ProtectRoute";
 import GenerateQuiz from "./Pages/GenerateQuiz";
 import PreviewQuiz from "./Pages/PreviewQuiz";
 import GameRoom from "./Pages/GameRoom";
+import CreateQuiz from "./Pages/CreateQuiz";
+import Profile from "./Pages/Profile";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
     children: [
-      { index: true, element: <Home /> },
+      { index: true, element: (<ProtectRoute><Home /></ProtectRoute> )},
       { path: "about", element: <About /> },
       { path: "auth", element: <Auth /> },
       {
@@ -49,6 +51,22 @@ const router = createBrowserRouter([
         element: (
           <ProtectRoute>
             <GameRoom/>
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: "create-quiz", // Changed from "rooom/generate-quiz/:roomId"
+        element: (
+          <ProtectRoute>
+            <CreateQuiz/>
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: "profile", // Changed from "rooom/generate-quiz/:roomId"
+        element: (
+          <ProtectRoute>
+            <Profile/>
           </ProtectRoute>
         ),
       },

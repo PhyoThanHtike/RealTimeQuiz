@@ -7,7 +7,7 @@ import GameHeader from "../AppComponents/GameRoom/GameHeader";
 import ParticipantsPanel from "../AppComponents/GameRoom/ParticipantsPanel";
 import WaitingRoom from "../AppComponents/GameRoom/WaitingRoom";
 import QuestionPhase from "../AppComponents/GameRoom/QuestionPhase";
-import LeaderboardPhase from "@/AppComponents/GameRoom/LeaderBoardPhase";
+import LeaderboardPhase from "@/AppComponents/GameRoom/LeaderboardPhase";
 import QuizFinished from "../AppComponents/GameRoom/QuizFinished";
 import { motion } from "framer-motion";
 
@@ -15,7 +15,7 @@ const GameRoom = () => {
   const { roomId, userId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
+  console.log("I'm rendered!");
   const { participants, status, phase, hostId, currentQuestion, questionIndex, leaderboard, totalQuestions } = useAppSelector(state => state.room);
 
   const isHost = useMemo(() => userId === hostId, [userId, hostId]);

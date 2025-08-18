@@ -35,7 +35,7 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Create Quiz", path: "/create" },
+    // { name: "Create Quiz", path: "/create-quiz" },
     { name: "My Rooms", path: "/room" },
   ];
 
@@ -141,7 +141,7 @@ const Navbar = () => {
               <button className="flex items-center gap-2 focus:outline-none">
                 <div className="relative">
                   <img
-                    src={"/default-avatar.png"}
+                    src={"https://cdn.prod.website-files.com/62bdc93e9cccfb43e155104c/66c9beca445b37b90d7a4696_Luffy%20pfp%20400x400%20(6).png"}
                     alt="User profile"
                     className="h-9 w-9 rounded-full object-cover border-2 border-purple-500/30 hover:border-purple-500/60 transition-all"
                     referrerPolicy="no-referrer"

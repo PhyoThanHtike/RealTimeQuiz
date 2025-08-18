@@ -115,6 +115,7 @@ export const getRoomById = async (
   }
 };
 
+//generate quiz for room without file
 export const generateQuizForRoom = async (
   roomId: any,
   quizData: generateQuizData
@@ -140,6 +141,43 @@ export const generateQuizForRoom = async (
   }
 };
 
+// Generate quiz with file
+export const generateQuizForRoomWithFile = async (
+  roomId: string,
+  quizData: { prompt: string; topic?: string; file: File }
+): Promise<createRoomResponse | errorResponse> => {
+  try {
+    const formData = new FormData();
+    formData.append("prompt", quizData.prompt);
+    formData.append("topic", quizData.topic || "");
+    formData.append("file", quizData.file);
+
+    const response = await axiosInstance.post(
+      `/room/generate-quiz/file/${roomId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      return {
+        message: error.response.data.message || "Quiz generation failed",
+        status: error.response.data.status || false,
+      };
+    }
+    return {
+      message: "Network error or server unavailable",
+      status: false,
+    };
+  }
+};
+
+
+//Join Room
 export const joinRoom = async (
   roomId: any
 ): Promise<createRoomResponse | errorResponse> => {
@@ -158,5 +196,29 @@ export const joinRoom = async (
       message: "Network error or server unavailable",
       status: false,
     };
+  }
+};
+
+//Delete Room
+export const deleteRoom = async (roomId: string) => {
+  try {
+    const response = await axiosInstance.delete(`/room/delete-room/${roomId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Network error or server unavailable"
+    );
+  }
+};
+
+//Reset Room
+export const resetRoom = async (roomId: string) => {
+  try {
+    const response = await axiosInstance.put(`/room/reset-room/${roomId}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Network error or server unavailable"
+    );
   }
 };

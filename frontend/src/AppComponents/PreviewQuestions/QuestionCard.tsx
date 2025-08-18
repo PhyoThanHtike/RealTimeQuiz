@@ -25,7 +25,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, index }) => {
       variants={cardVariants}
       initial="hidden"
       animate="visible"
-      className="bg-white rounded-xl shadow-lg mb-6"
+      className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl shadow-lg mb-6"
     >
       <div className="overflow-hidden rounded-xl">
         <div className="p-6">
@@ -38,7 +38,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, index }) => {
             </span>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          <h3 className="text-xl font-semibold text-gray-200 mb-4">
             {question.question}
           </h3>
 

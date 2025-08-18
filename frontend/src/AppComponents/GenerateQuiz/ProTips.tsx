@@ -16,9 +16,9 @@ const ProTips = () => {
   return (
     <motion.div
       variants={itemVariants}
-      className="mt-12 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-sm p-8"
+      className="mt-12 bg-white/30 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-sm p-8"
     >
-      <h3 className="font-medium text-gray-800 mb-4 flex items-center gap-3 text-lg">
+      <h3 className="font-medium text-gray-200 mb-4 flex items-center gap-3 text-lg">
         <div className="p-2 rounded-full bg-blue-100 text-blue-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,26 +35,26 @@ const ProTips = () => {
         </div>
         Pro Tips for Best Results
       </h3>
-      <ul className="text-gray-700 space-y-3 pl-2">
+      <ul className="text-gray-300 space-y-3 pl-2">
         <motion.li whileHover={{ x: 5 }} className="flex items-start gap-2">
-          <span className="text-blue-600 mt-1">•</span>
+          <span className="text-gray-100 text-bold">•</span>
           <span>
             Be specific about question types (e.g., "5 true/false and 5 multiple
             choice")
           </span>
         </motion.li>
         <motion.li whileHover={{ x: 5 }} className="flex items-start gap-2">
-          <span className="text-blue-600 mt-1">•</span>
+          <span className="text-gray-100 text-bold">•</span>
           <span>
             Specify difficulty level (beginner, intermediate, advanced)
           </span>
         </motion.li>
         <motion.li whileHover={{ x: 5 }} className="flex items-start gap-2">
-          <span className="text-blue-600 mt-1">•</span>
+          <span className="text-gray-100 text-bold">•</span>
           <span>Upload reference documents for context-aware questions</span>
         </motion.li>
         <motion.li whileHover={{ x: 5 }} className="flex items-start gap-2">
-          <span className="text-blue-600 mt-1">•</span>
+          <span className="text-gray-100 text-bold">•</span>
           <span>Combine topic and detailed prompt for optimal results</span>
         </motion.li>
       </ul>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import type { getRooms } from "@/apiEndpoints/Room";
-import CreatedRoomCard from "@/AppComponents/CreateRoom/CreatedRoomCard";
+import CreatedRoomCard from "@/AppComponents/MyRooms/CreatedRoomCard";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useSelector } from "react-redux";
@@ -12,7 +12,8 @@ interface MyRoomsProps {
   isLoading: boolean;
   error: Error | null;
   isError: boolean;
-  onDeleteRoom?: (id: string) => void;
+  onDeleteRoom?: (roomId: string) => void;
+  onResetRoom?: (roomId: string) => void;
   filter?: "active" | "all";
 }
 
@@ -22,6 +23,7 @@ const MyRooms: React.FC<MyRoomsProps> = ({
   error,
   isError,
   onDeleteRoom,
+  onResetRoom,
   filter = "all",
 }) => {
   const filteredRooms =
@@ -55,28 +57,15 @@ const MyRooms: React.FC<MyRoomsProps> = ({
           </div>
         ) : (
           filteredRooms.map((room) => (
-            <Link
-              to={
-                room.status === "active"
-                  ? `/room/preview-quiz/${room._id}/${userId}`
-                  : room.status === "started"
-                  ? `/room/game-room/${room._id}/${userId}`
-                  : room.status === "waiting"
-                  ? `/room/generate-quiz/${room._id}/${userId}`
-                  : room.status === "finished"
-                  ? `/room/final-room/${room._id}/${userId}}`
-                  : `/room/generate-quiz/${room._id}/${room.creator}`
-              }
-              key={room._id}
-              className="block"
-            >
+
               <CreatedRoomCard
                 _id={room._id}
+                userId={userId}
                 roomName={room.roomName}
                 status={room.status}
                 onDelete={onDeleteRoom}
+                onReset={onResetRoom}
               />
-            </Link>
           ))
         )}
         {filter != "all" && (

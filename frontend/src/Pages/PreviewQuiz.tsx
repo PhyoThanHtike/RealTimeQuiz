@@ -43,7 +43,7 @@ const PreviewQuiz: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-800 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 to-purple-950 p-4">
       <PreviewQuizComponent
         room={room}
         loading={loading}

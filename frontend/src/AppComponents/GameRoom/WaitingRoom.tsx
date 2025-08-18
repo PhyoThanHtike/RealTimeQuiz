@@ -1,10 +1,22 @@
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-const WaitingRoom = ({ isHost, onStart }: { isHost: boolean; onStart: () => void }) => {
+const WaitingRoom = ({
+  isHost,
+  onStart,
+}: {
+  isHost: boolean;
+  onStart: () => void;
+}) => {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -13,16 +25,21 @@ const WaitingRoom = ({ isHost, onStart }: { isHost: boolean; onStart: () => void
         <CardHeader>
           <CardTitle className="text-2xl text-white">
             <motion.span
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600"
+              className="inline-block transform-gpu bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600"
+              animate={{ y: [0, -3, 0], scale: [1, 1.02, 1] }}
+              transition={{
+                duration: 1,
+                times: [0, 0.3, 0.4],
+                ease: "easeInOut",
+                repeat: Infinity,
+              }}
             >
               Waiting for players...
             </motion.span>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <motion.p 
+          <motion.p
             className="text-gray-400 text-lg"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 3, repeat: Infinity }}
@@ -35,14 +52,17 @@ const WaitingRoom = ({ isHost, onStart }: { isHost: boolean; onStart: () => void
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              animate={{ 
-                boxShadow: ["0 0 0 0 rgba(74, 222, 128, 0.7)", "0 0 0 10px rgba(74, 222, 128, 0)"],
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(74, 222, 128, 0.7)",
+                  "0 0 0 10px rgba(74, 222, 128, 0)",
+                ],
               }}
-              transition={{ 
+              transition={{
                 boxShadow: { duration: 1.5, repeat: Infinity },
               }}
             >
-              <Button 
+              <Button
                 className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg"
                 onClick={onStart}
               >
