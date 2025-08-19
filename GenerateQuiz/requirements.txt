@@ -1,0 +1,24 @@
+# FastAPI & Server
+fastapi
+uvicorn[standard]
+
+# LangChain core + Chroma vector store
+langchain
+langchain-community
+chromadb
+
+# OpenAI API
+openai
+
+# Document loaders
+pypdf
+docx2txt
+
+# Text splitting and embeddings
+tiktoken
+
+# Environment variables
+python-dotenv
+
+# Optional: To parse DOC files (not docx)
+python-docx
