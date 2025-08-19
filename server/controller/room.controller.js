@@ -4,6 +4,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import cloudinary from "../lib/cloudinary.js";
+import FormData from "form-data";
 
 export const createRoom = async (req, res) => {
   try {
@@ -210,55 +211,34 @@ export const generateQuizForRoom = async (req, res) => {
 
 // GENERATE QUIZ WITH FILE
 // GENERATE QUIZ WITH FILE USING CLOUDINARY
-export const generateQuizForRoomWithFile = async (req, res) => {
+export const generateQuizForRoomFile = async (req, res) => {
   try {
     const { roomId } = req.params;
     const { prompt, topic } = req.body;
+    const filePath = req.file?.path; // Assuming you're using multer and the uploaded file is here
 
     const room = await Room.findById(roomId);
     if (!room) {
       return res.status(404).json({ error: "Room not found" });
     }
-
-    if (!req.files || !req.files.file) {
+    if (!filePath) {
       return res.status(400).json({ error: "File is required" });
     }
 
-    const file = req.files.file;
-
-    // Upload file to Cloudinary
-    const cloudinaryResult = await cloudinary.uploader.upload(file.tempFilePath || file.tempFilePath || file.tempFilePath || file.tempFilePath, {
-      resource_type: "raw",
-      folder: "quiz_uploads",
-    });
-
-    const uploadedFileUrl = cloudinaryResult.secure_url;
-
-    // Download the uploaded file to a temporary path
-    const responseFromCloudinary = await axios.get(uploadedFileUrl, {
-      responseType: "stream",
-    });
-
-    const tempPath = path.resolve(`./temp/${file.name}`);
-    const writer = fs.createWriteStream(tempPath);
-    await new Promise((resolve, reject) => {
-      responseFromCloudinary.data.pipe(writer);
-      writer.on("finish", resolve);
-      writer.on("error", reject);
-    });
-
-    // Prepare FormData
     const formData = new FormData();
+    formData.append("file", fs.createReadStream(filePath));
     formData.append("prompt", prompt);
-    formData.append("num_questions", room.quizCount);
-    formData.append("topic", topic || "");
-    formData.append("file", fs.createReadStream(tempPath));
+    formData.append("num_questions", String(room.quizCount));
+    if (topic) formData.append("topic", topic);
 
+    // Call FastAPI /generate-quiz/file
     const response = await axios.post(
       "http://localhost:8000/generate-quiz/file",
       formData,
       {
-        headers: formData.getHeaders(),
+        headers: {
+          ...formData.getHeaders(),
+        },
       }
     );
 
@@ -271,20 +251,17 @@ export const generateQuizForRoomWithFile = async (req, res) => {
     }));
 
     room.questions = questions;
+    room.status = "active";
     await room.save();
 
-    // Clean up local file
-    fs.unlinkSync(tempPath);
-
     res.status(200).json({
-      message: "Quiz generated successfully from file",
+      message: "Quiz generated successfully (file upload)",
       room,
     });
   } catch (err) {
-    console.error(
-      "Error generating quiz with file:",
-      err.response?.data || err.message
-    );
-    return res.status(500).json({ error: err.message });
+    console.error("Error generating quiz:", err.response?.data || err.message);
+    return res.status(500).json({
+      error: err.response?.data?.detail || err.message,
+    });
   }
 };

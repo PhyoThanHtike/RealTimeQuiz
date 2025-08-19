@@ -142,15 +142,21 @@ export const generateQuizForRoom = async (
 };
 
 // Generate quiz with file
-export const generateQuizForRoomWithFile = async (
-  roomId: string,
-  quizData: { prompt: string; topic?: string; file: File }
+// apiEndpoints/Room.ts
+export const generateQuizForRoomFile = async (
+  roomId: any,
+  data: {
+    file: File;
+    prompt: string;
+    topic?: string;
+  }
 ): Promise<createRoomResponse | errorResponse> => {
   try {
     const formData = new FormData();
-    formData.append("prompt", quizData.prompt);
-    formData.append("topic", quizData.topic || "");
-    formData.append("file", quizData.file);
+    formData.append("file", data.file);
+    formData.append("prompt", data.prompt);
+    // formData.append("file", data.file);
+    if (data.topic) formData.append("topic", data.topic);
 
     const response = await axiosInstance.post(
       `/room/generate-quiz/file/${roomId}`,
@@ -161,6 +167,7 @@ export const generateQuizForRoomWithFile = async (
         },
       }
     );
+
     return response.data;
   } catch (error: any) {
     if (error.response) {
