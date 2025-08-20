@@ -1,4 +1,4 @@
-import { Login } from "@/apiEndpoints/Auth";
+import { Login, SignUp } from "@/apiEndpoints/Auth";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@/store/slices/UserSlice";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-  import { FcGoogle } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 
 type authMode = "login" | "signup";
 
@@ -16,7 +16,7 @@ interface LoginFormData {
 }
 
 interface SignupFormData extends LoginFormData {
-  username: string;
+  userName: string;
   email: string;
   password: string;
 }
@@ -29,7 +29,7 @@ const Auth = () => {
     password: "",
   });
   const [signUpData, setSignUpData] = useState<SignupFormData>({
-    username: "",
+    userName: "",
     email: "",
     password: "",
   });
@@ -70,6 +70,15 @@ const Auth = () => {
         }
       } else {
         console.log(signUpData);
+        const response = await SignUp(signUpData);
+        if ("message" in response) {
+          setError(response.message);
+        }else{
+          dispatch(setUser(response));
+          toast.success("SignUp Successful");
+          navigate("/");
+        }
+
       }
     } catch (err) {
       setError("An unexpected error occurred");
@@ -92,7 +101,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-purple-900 flex items-center justify-center p-4">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -108,16 +117,16 @@ const Auth = () => {
           >
             <span className="text-3xl font-bold text-white">
               Quiz
-              <motion.span 
+              <motion.span
                 className="text-purple-500"
-                animate={{ 
+                animate={{
                   rotate: [0, 10, -10, 0],
-                  scale: [1, 1.1, 1]
+                  scale: [1, 1.1, 1],
                 }}
-                transition={{ 
+                transition={{
                   duration: 1.5,
                   repeat: Infinity,
-                  repeatDelay: 3
+                  repeatDelay: 3,
                 }}
               >
                 Hub
@@ -167,11 +176,11 @@ const Auth = () => {
                   Username
                 </label>
                 <input
-                  id="username"
-                  name="username"
+                  id="userName"
+                  name="userName"
                   type="text"
                   required
-                  value={signUpData.username}
+                  value={signUpData.userName}
                   onChange={handleChange}
                   className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                   placeholder="Enter your username"
@@ -207,7 +216,9 @@ const Auth = () => {
                 value={currentFormData.password}
                 onChange={handleChange}
                 className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                placeholder={mode === "login" ? "Enter your password" : "Create a password"}
+                placeholder={
+                  mode === "login" ? "Enter your password" : "Create a password"
+                }
               />
             </div>
 

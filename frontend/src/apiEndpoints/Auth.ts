@@ -4,6 +4,13 @@ interface loginData {
   email: String;
   password: String;
 }
+
+interface signupData {
+  userName: string,
+  email: string,
+  password: string
+}
+
 export interface loginResponse {
   _id: String;
   userName: String;
@@ -41,6 +48,28 @@ export const Login = async (
     }
   }
 };
+
+export const SignUp = async (credentials: signupData): Promise<loginResponse | errorResponse> => {
+  try {
+    const response = await axiosInstance.post("/api/auth/signup", credentials);
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      return {
+        message: error.response.data.message || "Signup failed",
+        status: error.response.data.status || false,
+      };
+    } else if (error.request) {
+      // The request was made but no response was received
+      return { message: "No response from server" };
+    } else {
+      // Something happened in setting up the request
+      return { message: error.message };
+    }
+  
+  }
+}
 
 export const SignOut = async () => {
   try {
