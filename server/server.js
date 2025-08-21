@@ -9,6 +9,9 @@ import { app, server } from './lib/socket.js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import passport from "passport";
+import "./lib/passport.js";
+import googleAuthRoutes from './routes/googleAuth.route.js';
 
 dotenv.config();
 
@@ -41,6 +44,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
+
+app.use(passport.initialize());
+app.use("/api/auth", googleAuthRoutes);
 
 app.use("/api/auth", authRoutes);
 app.use("/room", roomRoutes);

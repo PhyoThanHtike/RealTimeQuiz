@@ -4,35 +4,6 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
 
-export const verifyUser = async (req, res) => {
-  const { idToken } = req.body;
-
-  try {
-    const verifyResponse = await axios.post(
-      "https://api.line.me/oauth2/v2.1/verify",
-      new URLSearchParams({
-        id_Token: idToken,
-        client_id: process.env.LINE_CHANNEL_ID,
-      }).toString(),
-      {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      }
-    );
-
-    const { name, picture, sub: userId } = verifyResponse.data;
-    const user = await User.findOneAndUpdate(
-      { userId },
-      { name, picture },
-      { new: true, upsert: true }
-    );
-    return res.json({ message: "User verified", user });
-  } catch (error) {
-    return res
-      .status(400)
-      .json({ error: "Token verification failed", details: err });
-  }
-};
-
 export const signUp = async (req, res) => {
   const { userName, email, password } = req.body;
   try {
@@ -131,3 +102,33 @@ export const checkAuth = (req, res) =>{
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
+
+
+export const verifyUser = async (req, res) => {
+  const { idToken } = req.body;
+
+  try {
+    const verifyResponse = await axios.post(
+      "https://api.line.me/oauth2/v2.1/verify",
+      new URLSearchParams({
+        id_Token: idToken,
+        client_id: process.env.LINE_CHANNEL_ID,
+      }).toString(),
+      {
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      }
+    );
+
+    const { name, picture, sub: userId } = verifyResponse.data;
+    const user = await User.findOneAndUpdate(
+      { userId },
+      { name, picture },
+      { new: true, upsert: true }
+    );
+    return res.json({ message: "User verified", user });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: "Token verification failed", details: err });
+  }
+};
