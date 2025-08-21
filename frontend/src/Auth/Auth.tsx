@@ -89,7 +89,7 @@ const Auth = () => {
 
   const handleGoogleLogin = () => {
     // Implement your Google OAuth logic here
-    window.location.href = "YOUR_GOOGLE_OAUTH_ENDPOINT";
+    window.location.href = "http://localhost:3001/auth/google";
   };
 
   const toggleMode = () => {

@@ -15,6 +15,7 @@ export interface loginResponse {
   _id: String;
   userName: String;
   email: String;
+  profilePicture: string;
 }
 interface errorResponse {
   message: string;
@@ -31,6 +32,7 @@ export const Login = async (
       _id: response.data._id,
       userName: response.data.userName,
       email: response.data.email,
+      profilePicture: response.data.profilePicture
     };
   } catch (error: any) {
     if (error.response) {

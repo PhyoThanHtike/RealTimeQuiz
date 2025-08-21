@@ -46,7 +46,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use(passport.initialize());
-app.use("/api/auth", googleAuthRoutes);
+app.use("/auth", googleAuthRoutes);
 
 app.use("/api/auth", authRoutes);
 app.use("/room", roomRoutes);

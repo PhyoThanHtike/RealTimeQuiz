@@ -3,6 +3,7 @@ import passport from "passport";
 import { generateToken } from "../lib/utils.js";
 
 const router = express.Router();
+const FRONTEND_URL = "http://localhost:5173";
 
 // Start OAuth flow
 router.get(
@@ -15,14 +16,26 @@ router.get(
   "/google/callback",
   passport.authenticate("google", {
     session: false,
-    failureRedirect: "/login", // or frontend fallback
+    failureRedirect: `${FRONTEND_URL}/auth`, // or frontend fallback
   }),
   (req, res) => {
-    // Send JWT cookie
-    generateToken(req.user._id, res);
+    try {
+      generateToken(req.user._id, res);
+      
+      const userData = {
+        _id: req.user._id.toString(),
+        userName: req.user.userName,
+        email: req.user.email,
+        profilePicture: req.user.profilePicture || ""
+      };
 
-    // Redirect after success
-    res.redirect("http://localhost:5173"); // or your frontend dashboard
+      // URL encode the data for safety
+      const queryParams = new URLSearchParams(userData).toString();
+      res.redirect(`${FRONTEND_URL}/auth/success?${queryParams}`);
+    } catch (error) {
+      console.error("Google callback error:", error);
+      res.redirect(`${FRONTEND_URL}/auth`);
+    }
   }
 );
 

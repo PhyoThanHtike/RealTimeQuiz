@@ -13,6 +13,7 @@ import PreviewQuiz from "./Pages/PreviewQuiz";
 import GameRoom from "./Pages/GameRoom";
 import CreateQuiz from "./Pages/CreateQuiz";
 import Profile from "./Pages/Profile";
+import AuthSuccess from "./Auth/AuthSuccess"; // Import the AuthSuccess component
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       { index: true, element: (<ProtectRoute><Home /></ProtectRoute> )},
       { path: "about", element: <About /> },
       { path: "auth", element: <Auth /> },
+      { 
+        path: "auth/success", // Add this route for Google OAuth success
+        element: <AuthSuccess /> 
+      },
       {
         path: "room",
         element: (
@@ -31,7 +36,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "room/generate-quiz/:roomId/:hostId", // Changed from "rooom/generate-quiz/:roomId"
+        path: "room/generate-quiz/:roomId/:hostId",
         element: (
           <ProtectRoute>
             <GenerateQuiz />
@@ -39,7 +44,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "room/preview-quiz/:roomId/:hostId", // Changed from "rooom/generate-quiz/:roomId"
+        path: "room/preview-quiz/:roomId/:hostId",
         element: (
           <ProtectRoute>
             <PreviewQuiz />
@@ -47,7 +52,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "room/game-room/:roomId/:userId", // Changed from "rooom/generate-quiz/:roomId"
+        path: "room/game-room/:roomId/:userId",
         element: (
           <ProtectRoute>
             <GameRoom/>
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "create-quiz", // Changed from "rooom/generate-quiz/:roomId"
+        path: "create-quiz",
         element: (
           <ProtectRoute>
             <CreateQuiz/>
@@ -63,7 +68,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "profile", // Changed from "rooom/generate-quiz/:roomId"
+        path: "profile",
         element: (
           <ProtectRoute>
             <Profile/>

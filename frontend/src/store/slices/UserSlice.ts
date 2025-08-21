@@ -1,12 +1,11 @@
 import type { loginResponse } from "@/apiEndpoints/Auth";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-// import type { AuthResponse } from "../../apiEndpoints/Auth";
-// import type { Product } from "../../types/Products";
 
 const initialState = {
     userId: "",
     userName: "",
-    email: ""
+    email: "",
+    profilePicture: ""
 };
 
 const UserSlice = createSlice({
@@ -17,6 +16,7 @@ const UserSlice = createSlice({
       state.userId = action.payload._id;
       state.userName = action.payload.userName;
       state.email = action.payload.email;
+      state.profilePicture = action.payload.profilePicture;
     },
   },
 });

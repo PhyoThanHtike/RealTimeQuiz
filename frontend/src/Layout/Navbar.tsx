@@ -9,12 +9,18 @@ import { SignOut } from "@/apiEndpoints/Auth";
 import { toast } from "sonner";
 
 const Navbar = () => {
-  const userId = useSelector((state: any) => state.user.userId);
+  // const userId = useSelector((state: any) => state.user.userId);
+  // const profilePicture = useSelector((state: any)=> state.user.profilePicture);
+
+  const user = useSelector((state:any)=> state.user);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState("");
+
+  // console.log("userId: ", userId);
+  // console.log("profilePicture: ", profilePicture);
 
   const handleSignOut = async () => {
     try {
@@ -24,6 +30,7 @@ const Navbar = () => {
           _id: "",
           userName: "",
           email: "",
+          profilePicture: ""
         })
       );
       toast.success(response.message);
@@ -137,11 +144,11 @@ const Navbar = () => {
             whileTap={{ scale: 0.95 }}
             onClick={toggleDropdown}
           >
-            {userId ? (
+            {user.userId ? (
               <button className="flex items-center gap-2 focus:outline-none">
                 <div className="relative">
                   <img
-                    src={"https://cdn.prod.website-files.com/62bdc93e9cccfb43e155104c/66c9beca445b37b90d7a4696_Luffy%20pfp%20400x400%20(6).png"}
+                    src={user.profilePicture}
                     alt="User profile"
                     className="h-9 w-9 rounded-full object-cover border-2 border-purple-500/30 hover:border-purple-500/60 transition-all"
                     referrerPolicy="no-referrer"
@@ -165,7 +172,7 @@ const Navbar = () => {
           </motion.div>
 
           <AnimatePresence>
-            {isDropdownOpen && userId && (
+            {isDropdownOpen && user.userId && (
               <motion.div
                 initial={{ opacity: 0, y: -10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -175,8 +182,8 @@ const Navbar = () => {
               >
                 <div className="py-1">
                   <div className="px-4 py-3 border-b border-gray-700">
-                    <p className="text-sm font-medium text-white">My Account</p>
-                    <p className="text-xs text-gray-400 truncate">user@example.com</p>
+                    <p className="text-sm font-medium text-white">{user.userName}</p>
+                    <p className="text-xs text-gray-400 truncate">{user.email}</p>
                   </div>
                   <Link
                     to="/profile"
