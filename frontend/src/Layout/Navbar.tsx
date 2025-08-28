@@ -84,7 +84,7 @@ const Navbar = () => {
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2"
         >
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center" onClick={()=>setActiveLink("")}>
             <span className="ml-2 text-xl font-bold text-white">
               Quiz
               <span className="bg-purple rounded-sm p-1 m-1 text-white">
@@ -198,6 +198,13 @@ const Navbar = () => {
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     Edit Profile
+                  </Link>
+                  <Link
+                    to="/room"
+                    className="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-700/50 transition-all"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
+                    My Rooms
                   </Link>
                   <button
                     className="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-gray-700/50 w-full transition-all"
