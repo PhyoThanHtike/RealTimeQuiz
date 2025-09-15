@@ -10,7 +10,8 @@ const persistConfig = {
   key: "realtime-quiz",
   version: 1,
   storage: storage,
-  whitelist: ["user", "room"], 
+  // whitelist: ["user"],   
+  // "room" 
 };
 
 const rootReducer = combineReducers({

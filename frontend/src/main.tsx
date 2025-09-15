@@ -16,11 +16,11 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={Store}>
-      <PersistGate persistor={persistor} loading={<Loading/>}>
+      {/* <PersistGate persistor={persistor} loading={null}> */}
         <QueryClientProvider client={queryClient}>
           <App />
         </QueryClientProvider>
-      </PersistGate>
+      {/* </PersistGate> */}
       <Toaster position="top-center" richColors closeButton />
     </Provider>
   </StrictMode>
