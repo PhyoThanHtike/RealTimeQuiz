@@ -246,7 +246,7 @@ const GenerateQuiz = () => {
                     value={quizData.topic}
                     onChange={handleInputChange}
                     placeholder="Example: 'JavaScript', 'World History'"
-                    className="text-lg border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="text-lg border-gray-300 text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </motion.div>
 

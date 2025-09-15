@@ -7,7 +7,7 @@ import UserReducer from "./slices/UserSlice";
 import RoomReducer from "./slices/RoomSlice";
 
 const persistConfig = {
-  key: "root",
+  key: "realtime-quiz",
   version: 1,
   storage: storage,
   whitelist: ["user", "room"], 
