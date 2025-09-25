@@ -34,7 +34,7 @@ const MyRooms: React.FC<MyRoomsProps> = ({
   const userId = useSelector((state: any) => state.user.userId);
 
   return (
-    <div className="p-6 flex flex-col h-full">
+    <div className="p-6 flex flex-col h-full bg-gray-800">
       <div
         className="space-y-4 flex-1 overflow-y-auto pb-4"
         style={{ maxHeight: "400px" }}

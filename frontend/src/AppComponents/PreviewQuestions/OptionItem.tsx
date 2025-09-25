@@ -19,10 +19,10 @@ const OptionItem: React.FC<OptionItemProps> = ({ option, index, isCorrect }) => 
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className={`p-4 rounded-lg mb-2 border ${
+      className={`p-4 rounded-lg mb-2 ${
         isCorrect
-          ? "bg-green-200 border-green-600"
-          : "bg-white border-gray-200"
+          ? "bg-green-200 border border-green-600"
+          : "bg-gray-700 border-gray-200"
       } shadow-sm`}
     >
       <div className="flex items-center">
@@ -33,7 +33,7 @@ const OptionItem: React.FC<OptionItemProps> = ({ option, index, isCorrect }) => 
         >
           {String.fromCharCode(65 + index)}
         </div>
-        <span className="text-gray-800">{option}</span>
+        <span className={`${isCorrect?"text-green-800 font-bold":"text-gray-100"}`}>{option}</span>
         {/* <span>{isCorrect}</span> */}
       </div>
     </motion.div>

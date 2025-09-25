@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import React from 'react'
 import { Link } from 'react-router-dom';
 const CTASection = () => {
   return (

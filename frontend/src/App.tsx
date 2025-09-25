@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout";
 import { Suspense, lazy } from "react";
 import ProtectRoute from "./Layout/ProtectRoute";
+import FinalRoom from "./Pages/FinalRoom";
+import ErrorPage from "./Pages/ErrorPage";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./Pages/Home"));
@@ -30,6 +32,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage/>,
     children: [
       {
         index: true,
@@ -101,6 +104,16 @@ const router = createBrowserRouter([
           <ProtectRoute>
             <Suspense fallback={<div className="p-4">Loading Game Room...</div>}>
               <GameRoom />
+            </Suspense>
+          </ProtectRoute>
+        ),
+      },
+      {
+        path: "room/final-room/:_id/:userId",
+        element: (
+          <ProtectRoute>
+            <Suspense fallback={<div className="p-4">Loading final Room...</div>}>
+              <FinalRoom/>
             </Suspense>
           </ProtectRoute>
         ),

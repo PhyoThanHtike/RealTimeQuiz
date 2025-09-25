@@ -1,9 +1,7 @@
 // src/components/Hero.tsx
-import React from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import CreateRoom from "../CreateRoom/CreateRoom";
 import JoinRoom from "../CreateRoom/JoinRoom";
 
@@ -100,21 +98,18 @@ const Hero = () => {
         className="relative z-10 h-full flex items-center justify-center"
       >
         <div className="text-center max-w-3xl mx-auto px-4">
-          <motion.h1
-            variants={textVariants}
-            className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-white"
-          >
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-white">
             Test Your{" "}
             <motion.span
-              className="text-purple"
-              initial={{ opacity: 0, scale: 1.2 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              className="text-purple inline-block"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               Knowledge
             </motion.span>{" "}
             in Realtime
-          </motion.h1>
+          </h1>
 
           <motion.p
             variants={textVariants}
@@ -139,7 +134,9 @@ const Hero = () => {
               <CreateRoom trigger={<Button>Create Room</Button>} />
             </motion.div>
             <motion.div variants={buttonVariants}>
-              <JoinRoom trigger={<Button variant="outline">Join Room</Button>}/>
+              <JoinRoom
+                trigger={<Button variant="outline">Join Room</Button>}
+              />
             </motion.div>
           </motion.div>
         </div>

@@ -15,16 +15,38 @@ const GameRoom = () => {
   const { roomId, userId } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  console.log("I'm rendered!");
-  const { participants, status, phase, hostId, currentQuestion, questionIndex, leaderboard, totalQuestions } = useAppSelector(state => state.room);
+
+  const {
+    participants,
+    status,
+    phase,
+    hostId,
+    currentQuestion,
+    questionIndex,
+    leaderboard,
+    totalQuestions,
+  } = useAppSelector((state) => state.room);
 
   const isHost = useMemo(() => userId === hostId, [userId, hostId]);
 
   useEffect(() => {
     if (!roomId || !userId) return;
+
+    // ✅ Connect & join room
     socketService.connectSocket();
     socketService.joinRoom(roomId, userId);
-    return () => socketService.disconnectSocket();
+
+    // ✅ Disconnect socket on pagehide for bfcache
+    const handlePageHide = () => {
+      socketService.disconnectSocket();
+    };
+    window.addEventListener("pagehide", handlePageHide);
+
+    // Cleanup on unmount
+    return () => {
+      socketService.disconnectSocket();
+      window.removeEventListener("pagehide", handlePageHide);
+    };
   }, [roomId, userId]);
 
   const handleLeaveRoom = () => {
@@ -34,7 +56,7 @@ const GameRoom = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       className="min-h-screen bg-gradient-to-br from-gray-900 to-purple-900 text-white p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -43,7 +65,7 @@ const GameRoom = () => {
       <div className="max-w-6xl mx-auto">
         <GameHeader roomId={roomId} isHost={isHost} onLeave={handleLeaveRoom} />
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 lg:grid-cols-3 gap-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -60,9 +82,9 @@ const GameRoom = () => {
               className="h-full"
             >
               {phase === "waiting" && (
-                <WaitingRoom 
-                  isHost={isHost} 
-                  onStart={() => socketService.startQuiz(roomId!, userId!)} 
+                <WaitingRoom
+                  isHost={isHost}
+                  onStart={() => socketService.startQuiz(roomId!, userId!)}
                 />
               )}
 

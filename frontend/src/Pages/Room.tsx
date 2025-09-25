@@ -110,51 +110,52 @@ const Room = () => {
       </motion.div>
 
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto w-full py-12 px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
+      <section className="bg-gradient-to-b from-purple-900 to-gray-700">
+        <div className="max-w-7xl mx-auto w-full py-12 px-4 sm:px-6 lg:px-8">
           <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
           >
-            <div className="bg-shade px-6 py-4">
-              <h2 className="text-xl font-bold text-white">Active Rooms</h2>
-              <p className="text-blue-100">Rooms currently in progress</p>
-            </div>
-            <MyRooms
-              data={createdRoomsData}
-              isLoading={isRoomsLoading}
-              error={roomsError}
-              isError={isError}
-              onDeleteRoom={handleDelete}
-              onResetRoom={handleReset}
-              filter="active"
-            />
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+            >
+              <div className="bg-shade px-6 py-4">
+                <h2 className="text-xl font-bold text-white">Active Rooms</h2>
+                <p className="text-blue-100">Rooms currently in progress</p>
+              </div>
+              <MyRooms
+                data={createdRoomsData}
+                isLoading={isRoomsLoading}
+                error={roomsError}
+                isError={isError}
+                onDeleteRoom={handleDelete}
+                onResetRoom={handleReset}
+                filter="active"
+              />
+            </motion.div>
+            <motion.div
+              variants={itemVariants}
+              className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
+            >
+              <div className="bg-indigo-600 px-6 py-4">
+                <h2 className="text-xl font-bold text-white">All Rooms</h2>
+                <p className="text-indigo-100">Your complete room history</p>
+              </div>
+              <MyRooms
+                data={createdRoomsData}
+                isLoading={isRoomsLoading}
+                error={roomsError}
+                onDeleteRoom={handleDelete}
+                onResetRoom={handleReset}
+                isError={isError}
+              />
+            </motion.div>
           </motion.div>
-
-          <motion.div
-            variants={itemVariants}
-            className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100"
-          >
-            <div className="bg-indigo-600 px-6 py-4">
-              <h2 className="text-xl font-bold text-white">All Rooms</h2>
-              <p className="text-indigo-100">Your complete room history</p>
-            </div>
-            <MyRooms
-              data={createdRoomsData}
-              isLoading={isRoomsLoading}
-              error={roomsError}
-              onDeleteRoom={handleDelete}
-              onResetRoom={handleReset}
-              isError={isError}
-            />
-          </motion.div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );

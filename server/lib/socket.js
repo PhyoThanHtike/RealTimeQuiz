@@ -21,11 +21,16 @@ io.on("connection", (socket) => {
   // Join room
   socket.on("joinRoom", async ({ roomId, userId }) => {
     socket.join(roomId.toString());
+    // if (!mongoose.Types.ObjectId.isValid(userId)) {
+    //   console.error("Invalid userId:", userId);
+    //   return; // don't query MongoDB
+    // }
 
     // const room = await Room.findById(roomId).populate(
     //   "participants.userId",
     //   "username"
     // );
+     console.log("joinRoom payload:", { roomId, userId });
     const room = await Room.findById(roomId);
 
     // Only add participant if they aren't the creator and not already in the list

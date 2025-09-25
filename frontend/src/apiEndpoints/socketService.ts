@@ -50,15 +50,6 @@ export const socketService = {
     socket?.emit("submitAnswer", payload);
   },
 
-  //   participants: [],
-  // status: "waiting",
-  // phase: "waiting",
-  // hostId: "",
-  // currentQuestion: null,
-  // questionIndex: 0,
-  // leaderboard: [],
-  // totalQuestions: 0,
-
   disconnectSocket: () => {
     if (socket) {
       socket.disconnect();

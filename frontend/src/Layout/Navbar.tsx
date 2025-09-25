@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { setUser } from "@/store/slices/UserSlice";
 import { SignOut } from "@/apiEndpoints/Auth";

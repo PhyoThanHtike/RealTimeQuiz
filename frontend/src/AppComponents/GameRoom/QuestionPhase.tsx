@@ -1,5 +1,11 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import TimerBadge from "./TimerBadge";
 import { useState, useEffect, useCallback, useMemo } from "react";
@@ -39,50 +45,63 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
     setSelected(null);
   }, [selected, onSubmit, currentQuestion.timeLimit]);
 
-  const handleOptionSelect = useCallback((idx: number) => {
-    if (!isHost && !timeUp) {
-      setSelected(idx);
-    }
-  }, [isHost, timeUp]);
+  const handleOptionSelect = useCallback(
+    (idx: number) => {
+      if (!isHost && !timeUp) {
+        setSelected(idx);
+      }
+    },
+    [isHost, timeUp]
+  );
 
   // Memoize option buttons to prevent unnecessary re-renders
-  const optionButtons = useMemo(() => (
-    currentQuestion.options.map((opt, idx) => (
-      <motion.div 
-        key={idx}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 + idx * 0.1 }}
-        whileHover={{ scale: timeUp ? 1 : 1.03 }}
-        whileTap={{ scale: timeUp ? 1 : 0.98 }}
-      >
-        <Button
-          variant={
-            timeUp && idx === currentQuestion.correctAnswer 
-              ? "correct" 
-              : selected === idx 
-                ? "default" 
+  const optionButtons = useMemo(
+    () =>
+      currentQuestion.options.map((opt, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 + idx * 0.1 }}
+          whileHover={{ scale: timeUp ? 1 : 1.03 }}
+          whileTap={{ scale: timeUp ? 1 : 0.98 }}
+        >
+          <Button
+            variant={
+              timeUp && idx === currentQuestion.correctAnswer
+                ? "correct"
+                : selected === idx
+                ? "default"
                 : "outline"
-          }
-          className={`w-full h-16 text-lg font-medium transition-all duration-200 ${
-            timeUp && idx === currentQuestion.correctAnswer
-              ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg border-2 border-emerald-400"
-              : selected === idx 
+            }
+            className={`w-full min-h-16 px-4 py-3 text-base font-medium transition-all duration-200 text-left whitespace-normal break-words ${
+              timeUp && idx === currentQuestion.correctAnswer
+                ? "bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg border-2 border-emerald-400"
+                : selected === idx
                 ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
                 : "bg-gray-700 hover:bg-gray-600 text-white border-gray-600"
-          }`}
-          onClick={() => handleOptionSelect(idx)}
-          disabled={timeUp}
-        >
-          <span className="mr-3 font-bold">{String.fromCharCode(65 + idx)}.</span> 
-          {opt}
-        </Button>
-      </motion.div>
-    ))
-  ), [currentQuestion.options, currentQuestion.correctAnswer, selected, timeUp, handleOptionSelect]);
+            }`}
+            onClick={() => handleOptionSelect(idx)}
+            disabled={timeUp}
+          >
+            <span className="mr-3 font-bold">
+              {String.fromCharCode(65 + idx)}.
+            </span>
+            <span className="flex-1">{opt}</span>
+          </Button>
+        </motion.div>
+      )),
+    [
+      currentQuestion.options,
+      currentQuestion.correctAnswer,
+      selected,
+      timeUp,
+      handleOptionSelect,
+    ]
+  );
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -95,15 +114,15 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
                 Question {questionIndex + 1}
               </span>
             </CardTitle>
-            <TimerBadge 
+            <TimerBadge
               key={`timer-${questionIndex}`}
-              initialTime={currentQuestion.timeLimit} 
+              initialTime={currentQuestion.timeLimit}
               onTimeUp={handleTimeUp}
             />
           </div>
         </CardHeader>
         <CardContent>
-          <motion.p 
+          <motion.p
             className="text-xl mb-6 text-white font-medium"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -120,23 +139,28 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
               initial={{ opacity: 0, y: 10 }}
               animate={controls}
               variants={{
-                visible: { opacity: 1, y: 0 }
+                visible: { opacity: 1, y: 0 },
               }}
               transition={{ delay: 0.5 }}
               className="mt-6 p-4 bg-gray-800 rounded-lg border-l-4 border-emerald-500"
             >
-              <h3 className="text-lg font-semibold text-emerald-400 mb-2">Explanation:</h3>
+              <h3 className="text-lg font-semibold text-emerald-400 mb-2">
+                Explanation:
+              </h3>
               <p className="text-gray-300">{currentQuestion.explanation}</p>
             </motion.div>
           )}
         </CardContent>
         <CardFooter className="flex justify-end gap-3">
           {isHost ? (
-            <motion.div whileHover={{ scale: timeUp ? 1 : 1.05 }} whileTap={{ scale: timeUp ? 1 : 0.95 }}>
-              <Button 
+            <motion.div
+              whileHover={{ scale: timeUp ? 1 : 1.05 }}
+              whileTap={{ scale: timeUp ? 1 : 0.95 }}
+            >
+              <Button
                 className={`bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all ${
-                  timeUp 
-                    ? "hover:from-blue-600 hover:to-purple-600" 
+                  timeUp
+                    ? "hover:from-blue-600 hover:to-purple-600"
                     : "hover:from-blue-700 hover:to-purple-700 opacity-70 cursor-not-allowed"
                 }`}
                 onClick={onNext}
@@ -146,9 +170,9 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
               </Button>
             </motion.div>
           ) : (
-            <motion.div 
-              whileHover={{ scale: (selected !== null && !timeUp) ? 1.05 : 1 }}
-              whileTap={{ scale: (selected !== null && !timeUp) ? 0.95 : 1 }}
+            <motion.div
+              whileHover={{ scale: selected !== null && !timeUp ? 1.05 : 1 }}
+              whileTap={{ scale: selected !== null && !timeUp ? 0.95 : 1 }}
             >
               <Button
                 className={`font-bold py-3 px-6 rounded-full shadow-lg transition-all ${
@@ -162,13 +186,19 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
                 {isSubmitting ? (
                   <motion.span
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                     className="inline-block"
                   >
                     ⏳
                   </motion.span>
+                ) : timeUp ? (
+                  "Time's Up!"
                 ) : (
-                  timeUp ? "Time's Up!" : "Submit Answer"
+                  "Submit Answer"
                 )}
               </Button>
             </motion.div>

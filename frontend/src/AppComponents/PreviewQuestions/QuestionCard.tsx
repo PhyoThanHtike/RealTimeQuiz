@@ -44,8 +44,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, index }) => {
 
           <div className="space-y-3">
             {question.options.map((option, i) => {
-              console.log("index: ",i);
-              console.log("correctIndex: ", question.correctAnswer);
+              // console.log("index: ",i);
+              // console.log("correctIndex: ", question.correctAnswer);
               return (
                 <OptionItem
                   key={i}

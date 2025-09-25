@@ -36,20 +36,20 @@ const CreatedRoomCard: React.FC<CardData> = ({
     waiting: {
       dot: "bg-amber-400",
       text: "text-amber-800",
-      bg: "bg-gradient-to-r from-amber-50 to-amber-100",
+      bg: "bg-amber-400",
       border: "border border-amber-200",
     },
     finished: {
-      dot: "bg-emerald-500",
-      text: "text-emerald-800",
-      bg: "bg-gradient-to-r from-emerald-50 to-emerald-100",
-      border: "border border-emerald-200",
+      dot: "bg-blue-500",
+      text: "text-blue-800 ",
+      bg: "bg-blue-400",
+      border: "border border-blue-200",
     },
     active: {
-      dot: "bg-blue-500",
-      text: "text-blue-800",
-      bg: "bg-gradient-to-r from-blue-50 to-blue-100",
-      border: "border border-blue-200",
+      dot: "bg-emerald-500 ",
+      text: "text-emerald-800",
+      bg: "bg-emerald-400 ",
+      border: "border border-emerald-200 ",
     },
     default: {
       dot: "bg-gray-400",
@@ -64,7 +64,7 @@ const CreatedRoomCard: React.FC<CardData> = ({
 
   return (
     <div
-      className={`w-full rounded-xl ${currentStatus.bg} ${currentStatus.border} shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden`}
+      className={`w-full rounded-xl bg-gray-600 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden `}
     >
       <div className="flex items-center justify-between p-5 gap-4">
         <div className="flex items-center gap-4">
@@ -79,7 +79,7 @@ const CreatedRoomCard: React.FC<CardData> = ({
             </div>
           </div>
           <div>
-            <h2 className="font-semibold text-gray-900 text-lg">{roomName}</h2>
+            <h2 className="font-semibold text-gray-100 text-lg">{roomName}</h2>
             <span
               className={`text-xs font-semibold px-2.5 py-1 rounded-full ${currentStatus.text} ${currentStatus.bg} shadow-inner`}
             >
@@ -118,7 +118,7 @@ const CreatedRoomCard: React.FC<CardData> = ({
                   </AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => onDelete?.(_id)}
-                    className="bg-red-600 hover:bg-red-700 rounded-lg"
+                    className="bg-red-200 hover:bg-red-600 rounded-lg"
                   >
                     Delete
                   </AlertDialogAction>
@@ -133,7 +133,7 @@ const CreatedRoomCard: React.FC<CardData> = ({
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="p-2 hover:bg-blue-50 text-blue-600 hover:text-blue-700 rounded-lg"
+                    className="p-2 hover:bg-blue-50 text-blue-400 hover:text-blue-600 rounded-lg"
                   >
                     <RotateCcw/> Reset
                   </Button>
