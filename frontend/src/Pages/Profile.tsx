@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Icons } from "@/components/ui/icons";
+import { useSelector } from "react-redux";
 
 interface QuizStats {
   totalQuizzes: number;
@@ -33,6 +34,8 @@ interface RecentQuiz {
 
 export default function Profile() {
   // Mock data - replace with your actual data
+
+  const userData = useSelector((state:any) => state.user);
   const user = {
     name: "Alex Johnson",
     email: "alex.johnson@example.com",

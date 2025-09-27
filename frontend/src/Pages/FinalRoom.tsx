@@ -38,7 +38,7 @@ const FinalRoom: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-gradient-to-b from-gray-900 to-purple-950 py-10">
+    <div className="w-full bg-gradient-to-b from-purple-900 to-gray-700 py-10">
         <div className="max-w-4xl mx-auto p-6 space-y-10 ">
           {/* Leaderboard */}
           <motion.div
@@ -46,7 +46,7 @@ const FinalRoom: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg rounded-2xl">
+            <Card className="bg-gradient-to-br from-gray-900 to-purple-900 text-white shadow-lg rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-2xl font-bold">
                   <Trophy className="w-6 h-6 text-yellow-300" />
