@@ -69,6 +69,7 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  
   return (
     <motion.nav
       initial={{ y: -100 }}

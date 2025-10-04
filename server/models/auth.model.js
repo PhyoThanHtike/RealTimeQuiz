@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const userSchema = new mongoose.Schema({
   userName: {
@@ -23,7 +23,19 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true, // allow multiple nulls
   },
+  userRoom: [userRoomSchema]
 });
+
+const userRoomSchema = new Mongoose.Schema({
+  roomId: String,
+  score: Number,
+  maxScore: Number,
+  roomStatus: {
+    type: String,
+    enum: ["waiting", "active", "started", "finished"],
+    default: "waiting",
+  }
+})
 
 const User = mongoose.model("User", userSchema);
 export default User;

@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
         room.status = "finished";
         room.phase = "finished";
         await room.save();
-
+        
         io.to(roomId).emit("quizFinished", {
           leaderboard: calculateLeaderboard(room),
         });

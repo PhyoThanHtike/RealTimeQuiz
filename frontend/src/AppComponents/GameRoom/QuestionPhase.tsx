@@ -71,7 +71,7 @@ const QuestionPhase: React.FC<QuestionPhaseProps> = ({
               timeUp && idx === currentQuestion.correctAnswer
                 ? "correct"
                 : selected === idx
-                ? "default"
+                ? "wrong"
                 : "outline"
             }
             className={`w-full min-h-16 px-4 py-3 text-base font-medium transition-all duration-200 text-left whitespace-normal break-words ${

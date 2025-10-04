@@ -12,6 +12,7 @@ const buttonVariants = cva(
         default:
           "bg-purple text-primary-foreground shadow-xs hover:bg-purpleHover",
         correct: "bg-emerald-500 text-primary-foreground shadow-xs",
+        wrong: "bg-red-700 text-primary-foreground shadow-xs",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
